@@ -26,19 +26,10 @@ classifiers = [
 ]
 dependencies = []
 
-# The configuration for the scikit-build-core build process
-[tool.scikit-build]
-cmake.version = ">=3.9"
-build.verbose = true
-
-[tool.scikit-build.cmake.define]
-BUILD_PYTHON = "ON"
-BUILD_TESTING = "OFF"
-BUILD_DOCS = "OFF"
-
-# The following is the configuration for the pytest test suite
-[tool.pytest.ini_options]
-testpaths = ["tests/python"]
+[project.optional-dependencies]
+tests = [
+    "pytest",
+]
 
 # The next section configures building wheels in Continuous Integration
 # The cibuildwheel documentation covers the available options in detail:
@@ -52,8 +43,8 @@ testpaths = ["tests/python"]
 build-verbosity = 3
 
 # We restrict ourselves to recent Python versions
-skip = "pp* *p27-* cp35-* cp36-* cp37-* *musllinux*"
+skip = "pp* *p27-* cp38-* cp39-* *musllinux*"
 
 # Testing commands for our wheels
-test-command = "pytest {package}/tests/python"
+test-command = "pytest {package}/tests"
 test-requires = ["pytest"]

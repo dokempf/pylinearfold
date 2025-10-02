@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         submodules: 'recursive'
 
@@ -27,7 +27,7 @@ jobs:
       with:
         path: ./wheelhouse/*.whl
 
-  upload_testpypi:
+  upload_pypi:
     needs: [build-wheels]
     runs-on: ubuntu-latest
     permissions:
@@ -39,20 +39,4 @@ jobs:
           name: artifact
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.8.11
-        with:
-          repository_url: https://test.pypi.org/legacy/
-
-  upload_pypi:
-    needs: [build-wheels, upload_testpypi]
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-    if: github.event_name == 'release' && github.event.action == 'published'
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: artifact
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@release/v1.8.11
+      - uses: pypa/gh-action-pypi-publish@v1.13.0

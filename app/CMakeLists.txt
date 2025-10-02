@@ -1,2 +1,0 @@
-add_executable(pylinearfold_app pylinearfold_app.cpp)
-target_link_libraries(pylinearfold_app PRIVATE pylinearfold)
