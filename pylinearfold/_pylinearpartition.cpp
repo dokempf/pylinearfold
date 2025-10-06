@@ -15,7 +15,7 @@ PYBIND11_MODULE(_pylinearpartition, m)
       return parser.parse(seq);
     },
     py::arg("seq"),
-    py::arg("beamsize"),
-    py::arg("verbose"),
-    py::arg("sharpturn"));
+    py::arg("beamsize") = 100,
+    py::arg("verbose") = false,
+    py::arg("sharpturn") = false);
 }

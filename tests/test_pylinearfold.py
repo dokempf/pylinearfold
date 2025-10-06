@@ -9,4 +9,4 @@ def test_pylinearfold():
 
 def test_pylinearpartition():
     res = pylinearfold.partition("GGGGAAAACCCC")
-    assert res < 1.0
+    assert 3.0 < res < 4.0

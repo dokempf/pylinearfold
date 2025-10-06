@@ -15,13 +15,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# Build libraries for linearfold and linearpartition
-add_library(linearfold SHARED ext/LinearFold/src/LinearFold.cpp)
+# Build libraries for linearfold...
+add_library(linearfold STATIC ext/LinearFold/src/LinearFold.cpp)
 target_include_directories(
   linearfold PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/LinearFold/src)
 target_compile_definitions(linearfold PUBLIC lv)
 
-add_library(linearpartition SHARED ext/LinearPartition/src/LinearPartition.cpp)
+# ... and linearpartition
+add_library(linearpartition STATIC ext/LinearPartition/src/LinearPartition.cpp)
 target_include_directories(
   linearpartition PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/LinearPartition/src)
 target_compile_definitions(linearfold PUBLIC lpv)
@@ -37,15 +38,18 @@ target_link_libraries(_pylinearfold PUBLIC linearfold)
 pybind11_add_module(_pylinearpartition pylinearfold/_pylinearpartition.cpp)
 target_link_libraries(_pylinearpartition PUBLIC linearpartition)
 
-set_target_properties(
-  _pylinearfold _pylinearpartition
-  PROPERTIES BUILD_RPATH "\$ORIGIN"
-             INSTALL_RPATH "\$ORIGIN"
-             INSTALL_RPATH_USE_LINK_PATH TRUE)
+# Linearfold defines functions in a header such that we cannot link
+# together two compilation units that include that header. We circumvent
+# this by adding the compiler-specific ignore flags for that violation.
+if (MSVC)
+    target_link_options(_pylinearfold PRIVATE /FORCE:MULTIPLE)
+else()
+    target_link_options(_pylinearfold PRIVATE -Wl,--allow-multiple-definition)
+endif()
+
 
 # Install the Python module shared library
-install(TARGETS _pylinearfold _pylinearpartition linearfold linearpartition
-        DESTINATION .)
+install(TARGETS _pylinearfold _pylinearpartition DESTINATION .)
 
 # This prints a summary of found dependencies
 include(FeatureSummary)
