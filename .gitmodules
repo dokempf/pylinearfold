@@ -3,4 +3,4 @@
 	url = https://github.com/LinearFold/LinearPartition.git
 [submodule "ext/LinearFold"]
 	path = ext/LinearFold
-	url = https://github.com/LinearFold/LinearFold.git
+	url = https://github.com/dokempf/LinearFold.git

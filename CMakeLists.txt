@@ -38,16 +38,6 @@ target_link_libraries(_pylinearfold PUBLIC linearfold)
 pybind11_add_module(_pylinearpartition pylinearfold/_pylinearpartition.cpp)
 target_link_libraries(_pylinearpartition PUBLIC linearpartition)
 
-# Linearfold defines functions in a header such that we cannot link
-# together two compilation units that include that header. We circumvent
-# this by adding the compiler-specific ignore flags for that violation.
-if (MSVC)
-    target_link_options(_pylinearfold PRIVATE /FORCE:MULTIPLE)
-else()
-    target_link_options(_pylinearfold PRIVATE -Wl,--allow-multiple-definition)
-endif()
-
-
 # Install the Python module shared library
 install(TARGETS _pylinearfold _pylinearpartition DESTINATION .)
 
