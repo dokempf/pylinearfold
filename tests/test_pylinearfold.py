@@ -8,5 +8,5 @@ def test_pylinearfold():
 
 
 def test_pylinearpartition():
-    res = pylinearfold.fold("GGGGAAAACCCC")
+    res = pylinearfold.partition("GGGGAAAACCCC")
     assert res < 1.0

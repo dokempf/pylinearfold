@@ -45,7 +45,7 @@ PYBIND11_MODULE(_pylinearfold, m)
       return parser.parse(seq, {});
     },
     py::arg("seq"),
-    py::arg("beam_size") = 100,
+    py::arg("beamsize") = 100,
     py::arg("verbose") = false,
     py::arg("sharpturn") = false,
     py::arg("eval") = false,
