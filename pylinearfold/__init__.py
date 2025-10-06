@@ -5,4 +5,5 @@ __version__ = metadata.version(__package__)
 del metadata
 
 
-from _pylinearfold import fold, partition
+from _pylinearfold import fold
+from _pylinearpartition import partition

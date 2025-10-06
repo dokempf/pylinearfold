@@ -8,16 +8,9 @@
 
 namespace py = pybind11;
 
-namespace pylinearfold {
-
-void
-_partition()
-{
-}
-
 PYBIND11_MODULE(_pylinearfold, m)
 {
-  m.doc() = "Python Bindings for linearfold and linerapartition";
+  m.doc() = "Python Bindings for linearfold";
 
   py::class_<BeamCKYParser::DecoderResult>(m, "DecoderResult")
     .def_readonly("structure", &BeamCKYParser::DecoderResult::structure)
@@ -61,8 +54,4 @@ PYBIND11_MODULE(_pylinearfold, m)
     py::arg("delta") = 5.0,
     py::arg("shape") = "",
     py::arg("dangles") = 2);
-
-  m.def("partition", _partition);
 }
-
-} // namespace pylinearfold
