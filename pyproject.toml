@@ -13,16 +13,20 @@ build-backend = "scikit_build_core.build"
 # single source of truth for pylinearfold's version
 [project]
 name = "pylinearfold"
-version = "0.0.1"
+version = "0.1.0"
 description = "Add short description here"
 readme = "README.md"
 maintainers = [
-    { name = "Luca Monari", email = "your@email.com" },
+    { name = "Luca Monari", email = "l.monari@zmbh.de" },
 ]
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
+]
+license-files = [
+    "COPYING.md",
+    "LICENSE.md",
 ]
 dependencies = []
 
