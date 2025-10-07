@@ -18,7 +18,15 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os:
+          - ubuntu-latest
+          - macos-latest
+          # The project currently does not compile on Windows. This is due to
+          # * sys/time.h usage
+          # * Non-compile time C-array sizes
+          # * Potentially many more reasons.exclude:
+          # TODO: Discuss with Luca how important Windows support would be for community acceptance.
+          # - windows-latest
         python-version: ["3.10", "3.13"]
 
     steps:
