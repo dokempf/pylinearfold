@@ -4,3 +4,6 @@
 [submodule "ext/LinearFold"]
 	path = ext/LinearFold
 	url = https://github.com/dokempf/LinearFold.git
+[submodule "ext/sys_time_h"]
+	path = ext/sys_time_h
+	url = https://github.com/win32ports/sys_time_h.git

@@ -25,7 +25,14 @@ target_compile_definitions(linearfold PUBLIC lv)
 add_library(linearpartition STATIC ext/LinearPartition/src/LinearPartition.cpp)
 target_include_directories(
   linearpartition PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/LinearPartition/src)
-target_compile_definitions(linearfold PUBLIC lpv)
+# target_compile_definitions(linearfold PUBLIC lpv)
+
+if(WIN32)
+  target_compile_definitions(linearfold PUBLIC NOMINMAX)
+  target_compile_definitions(linearpartition PUBLIC NOMINMAX)
+  target_include_directories(linearfold PUBLIC ext/sys_time_h)
+  target_include_directories(linearpartition PUBLIC ext/sys_time_h)
+endif()
 
 # Add Python bindings
 find_package(pybind11 REQUIRED)
