@@ -1,6 +1,9 @@
 [submodule "ext/LinearPartition"]
 	path = ext/LinearPartition
-	url = https://github.com/LinearFold/LinearPartition.git
+	url = https://github.com/dokempf/LinearPartition.git
 [submodule "ext/LinearFold"]
 	path = ext/LinearFold
 	url = https://github.com/dokempf/LinearFold.git
+[submodule "ext/sys_time_h"]
+	path = ext/sys_time_h
+	url = https://github.com/win32ports/sys_time_h.git

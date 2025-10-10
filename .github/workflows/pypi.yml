@@ -22,8 +22,7 @@ jobs:
         os:
           - ubuntu-latest
           - macos-latest
-          # see comment in ci.yml
-          # - windows-latest
+          - windows-latest
 
     steps:
     - uses: actions/checkout@v5
@@ -31,7 +30,12 @@ jobs:
         submodules: 'recursive'
 
     - name: Build wheels
-      uses: pypa/cibuildwheel@v3.2.0
+      uses: pypa/cibuildwheel@v3.2
+      env:
+        CIBW_ENVIRONMENT_WINDOWS: >
+          CC=clang-cl
+          CXX=clang-cl
+          SKBUILD_CMAKE_ARGS="-G Ninja"
 
     - uses: actions/upload-artifact@v4
       with:

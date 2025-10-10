@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.22)
 
 # Set a name and a version number for your project:
 project(
@@ -25,7 +25,17 @@ target_compile_definitions(linearfold PUBLIC lv)
 add_library(linearpartition STATIC ext/LinearPartition/src/LinearPartition.cpp)
 target_include_directories(
   linearpartition PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/LinearPartition/src)
-target_compile_definitions(linearfold PUBLIC lpv)
+target_compile_definitions(linearfold PUBLIC LINEARPARTITION_VIENNA)
+
+if(WIN32)
+  # std::min/std::max clash with Windows headers unless you opt of that madness
+  target_compile_definitions(linearfold PUBLIC NOMINMAX)
+  target_compile_definitions(linearpartition PUBLIC NOMINMAX)
+
+  # sys/time.h is a POSIX header, so we use a compatibility library
+  target_include_directories(linearfold PUBLIC ext/sys_time_h)
+  target_include_directories(linearpartition PUBLIC ext/sys_time_h)
+endif()
 
 # Add Python bindings
 find_package(pybind11 REQUIRED)
