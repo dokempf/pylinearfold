@@ -46,8 +46,10 @@ tests = [
 # Verbose output is helpful for understanding CI failures
 build-verbosity = 3
 
-# We restrict ourselves to recent Python versions
-skip = "pp* *p27-* cp38-* cp39-* *musllinux* *-win32 cp3??t-win*"
+# We restrict ourselves to 64 bit Python on Windows and omit free-threaded
+# builds on Windows - both because of cryptic error messages we received with
+# our clang-cl toolchain.
+skip = "*-win32 cp3??t-win*"
 
 # Testing commands for our wheels
 test-command = "pytest {package}/tests"
