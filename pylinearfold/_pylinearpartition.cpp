@@ -11,8 +11,13 @@ PYBIND11_MODULE(_pylinearpartition, m)
   m.def(
     "partition",
     [](std::string seq, int beam_size, bool verbose, bool sharpturn) {
-      BeamCKYParser parser(beam_size, !sharpturn, verbose);
-      return parser.parse(seq);
+      BeamCKYParser parser(
+        beam_size, !sharpturn, verbose, "", "", false, 0.0, "", true);
+      double free_energy = parser.parse(seq);
+
+      using namespace pybind11::literals;
+      return py::dict("structure"_a = parser.exported_structure,
+                      "free_energy"_a = free_energy);
     },
     py::arg("seq"),
     py::arg("beamsize") = 100,

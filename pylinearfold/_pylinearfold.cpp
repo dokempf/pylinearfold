@@ -12,46 +12,35 @@ PYBIND11_MODULE(_pylinearfold, m)
 {
   m.doc() = "Python Bindings for linearfold";
 
-  py::class_<BeamCKYParser::DecoderResult>(m, "DecoderResult")
-    .def_readonly("structure", &BeamCKYParser::DecoderResult::structure)
-    .def_property_readonly("score",
-                           [](BeamCKYParser::DecoderResult& self) {
-                             return (double)self.score / -100.0;
-                           })
-    .def_readonly("num_states", &BeamCKYParser::DecoderResult::num_states)
-    .def_readonly("time", &BeamCKYParser::DecoderResult::time);
-
   m.def(
     "fold",
     [](std::string seq,
        int beam_size,
        bool verbose,
        bool sharpturn,
-       bool eval,
-       std::optional<std::string> constraints,
        bool zuker,
        float delta,
-       std::string shape,
        int dangles) {
       BeamCKYParser parser(beam_size,
                            !sharpturn,
                            verbose,
-                           constraints.has_value(),
+                           false,
                            zuker,
                            delta,
-                           shape,
+                           "",
                            false,
                            dangles);
-      return parser.parse(seq, {});
+      auto result = parser.parse(seq, {});
+
+      using namespace pybind11::literals;
+      return py::dict("structure"_a = result.structure,
+                      "free_energy"_a = result.score / -100.0);
     },
     py::arg("seq"),
     py::arg("beamsize") = 100,
     py::arg("verbose") = false,
     py::arg("sharpturn") = false,
-    py::arg("eval") = false,
-    py::arg("constraints") = std::nullopt,
     py::arg("zuker") = false,
     py::arg("delta") = 5.0,
-    py::arg("shape") = "",
     py::arg("dangles") = 2);
 }
