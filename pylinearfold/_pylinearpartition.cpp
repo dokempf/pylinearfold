@@ -8,6 +8,7 @@ namespace py = pybind11;
 PYBIND11_MODULE(_pylinearpartition, m)
 {
   m.doc() = "Python Bindings for linearpartition";
+
   m.def(
     "partition",
     [](std::string seq, int beam_size, bool verbose, bool sharpturn) {
@@ -17,7 +18,8 @@ PYBIND11_MODULE(_pylinearpartition, m)
 
       using namespace pybind11::literals;
       return py::dict("structure"_a = parser.exported_structure,
-                      "free_energy"_a = free_energy);
+                      "free_energy"_a = free_energy,
+                      "probabilities"_a = parser.Pij);
     },
     py::arg("seq"),
     py::arg("beamsize") = 100,
