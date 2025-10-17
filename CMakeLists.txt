@@ -25,7 +25,7 @@ target_compile_definitions(linearfold PUBLIC lv)
 add_library(linearpartition STATIC ext/LinearPartition/src/LinearPartition.cpp)
 target_include_directories(
   linearpartition PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/ext/LinearPartition/src)
-target_compile_definitions(linearfold PUBLIC LINEARPARTITION_VIENNA)
+target_compile_definitions(linearpartition PUBLIC LINEARPARTITION_VIENNA)
 
 if(WIN32)
   # std::min/std::max clash with Windows headers unless you opt of that madness

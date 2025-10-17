@@ -10,5 +10,4 @@ def test_pylinearfold():
 def test_pylinearpartition():
     res = pylinearfold.partition("GGGGAAAACCCC")
     assert res["structure"] == "((((....))))"
-    assert res["free_energy"] == -5.4
-    assert 3.0 < res < 4.0
+    assert -5.6 < res["free_energy"] < -5.5
