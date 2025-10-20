@@ -1,0 +1,56 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "GDB attached to Python process (manual)",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "${command:python.interpreterPath}",
+      "processId": "${command:pickProcess}",
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "GDB attached to Python process (auto)",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "${command:python.interpreterPath}",
+      "processId": "${input:python-pid}",
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "python-pid",
+      "type": "command",
+      "command": "shellCommand.execute",
+      "args": {
+        "command": "pgrep -f python | tail -n 2 | head -n 1",
+        "useSingleResult": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "augustocdias.tasks-shell-input",
+    "ms-vscode.cpptools",
+    "ms-python.debugpy"
+  ]
+}
