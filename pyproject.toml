@@ -28,7 +28,9 @@ license-files = [
     "COPYING.md",
     "LICENSE.md",
 ]
-dependencies = []
+dependencies = [
+    "numpy"
+]
 
 [project.optional-dependencies]
 tests = [
