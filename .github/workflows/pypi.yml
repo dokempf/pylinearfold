@@ -56,21 +56,3 @@ jobs:
           path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.13.0
-
-  upload_testpypi:
-    needs: [build-wheels]
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-    if: github.event.inputs.deploy_to_testpypi == 'true'
-
-    steps:
-      - uses: actions/download-artifact@v5
-        with:
-          pattern: wheels-*
-          merge-multiple: true
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@v1.13.0
-        with:
-          repository-url: https://test.pypi.org/legacy/
